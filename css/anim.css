@@ -1,0 +1,33 @@
+html, body
+{
+    margin: 0%;
+	padding: 0%;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+}
+
+.screen
+{
+    position: absolute;
+    top: 50%;
+    width: 100%;
+    background-color: white;
+    animation-name: shutdown;
+    animation-duration: 2s;
+    animation-fill-mode: forwards;
+}
+
+@keyframes shutdown
+{
+    from
+    {
+        top: 50%;
+        height: 0;
+    }
+    to
+    {
+        top: 0%;
+        height: 100%;
+    }    
+}
