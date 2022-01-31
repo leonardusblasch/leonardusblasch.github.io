@@ -116,7 +116,7 @@ ksel.onchange = function()
 
     initVers();
     vsel.value = 0;
-    
+
     query();
 };
 
@@ -135,10 +135,12 @@ function initBuch()
         bsel.appendChild(opt);
     }
 
+    /*
     var opt = document.createElement('option');
     opt.innerHTML = '+++++++';
     opt.value = all;
     bsel.appendChild(opt);
+    */
 
     initKapitel();
     ksel.value = 0;
@@ -158,11 +160,12 @@ function initKapitel()
         opt.value = i;
         ksel.appendChild(opt);
     }
-
+    /*
     var opt = document.createElement('option');
     opt.innerHTML = '+++';
     opt.value = all;
     ksel.appendChild(opt);
+    */
 }
 
 function initVers()
@@ -177,10 +180,12 @@ function initVers()
         vsel.appendChild(opt);
     }
 
+    /*
     var opt = document.createElement('option');
     opt.innerHTML = '+++';
     opt.value = all;
     vsel.appendChild(opt);
+    */
 }
 
 function query()
