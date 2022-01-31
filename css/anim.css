@@ -13,12 +13,13 @@ html, body
     top: 50%;
     width: 100%;
     background-color: white;
-    animation-name: shutdown;
+    animation-name: on;
+    animation-delay: 1s;
     animation-duration: 2s;
     animation-fill-mode: forwards;
 }
 
-@keyframes shutdown
+@keyframes on
 {
     from
     {

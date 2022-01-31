@@ -22,8 +22,8 @@ let background = function(p)
 	
 	p.draw = function()
 	{
-		p.background(255);
-		
+		p.noStroke();
+
 		for(let x = 0; x < p.width; x += s)
 		{
 			for(y = 0; y < p.height; y += s)
