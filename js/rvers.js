@@ -1,18 +1,30 @@
-let div = document.getElementById('rvers');
+randomBib();
 
-let rbook = randomInt(bibel.length);
-let rchap = randomInt(bibel[rbook].length);
-let rvers = randomInt(bibel[rbook][rchap].length);
-let rbibel = bibel[rbook][rchap][rvers];
+document.getElementById('reload').onclick = function()
+{
+    randomBib();
+}
 
-let info = books[rbook] + ' ' + (rchap + 1) + ', ' + (rvers + 1);
-let text = document.createTextNode(rbibel);
-let infop = document.createElement('p');
-let textp = document.createElement('p');
-infop.append(info);
-textp.append(text);
-div.append(infop);
-div.append(textp);
+function randomBib()
+{
+    let div = document.getElementById('rvers');
+    div.innerHTML = '';
+
+    let rbook = randomInt(bibel.length);
+    let rchap = randomInt(bibel[rbook].length);
+    let rvers = randomInt(bibel[rbook][rchap].length);
+    let rbibel = bibel[rbook][rchap][rvers];
+    
+    let info = books[rbook] + ' ' + (rchap + 1) + ', ' + (rvers + 1);
+    let text = document.createTextNode(rbibel);
+    let infop = document.createElement('p');
+    let textp = document.createElement('p');
+    infop.append(info);
+    textp.append(text);
+    div.append(infop);
+    div.append(textp);
+    
+}
 
 function randomInt(max)
 {
