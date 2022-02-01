@@ -18,36 +18,3 @@ function randomInt(max)
 {
     return Math.floor(Math.random() * max);
 }
-
-
-
-/*
-
-for(let i = 0; i < bibel.length; i++)
-{
-    let text = document.createTextNode(i + 1 + ': ' + bibel[i][0][0]);
-    let p = document.createElement('p');
-    p.append(text);
-    div.append(p);
-}
-*/
-
-
-
-/*
-let count = 0;
-
-for(let book = 0; book < bibel.length; book++)
-{
-    for(let chap = 0; chap < bibel[book].length; chap++)
-    {
-        for(let vers = 0; vers < bibel[book][chap].length; vers++)
-        {
-            count++;
-        }
-    }
-}
-
-
-console.log(count);
-*/

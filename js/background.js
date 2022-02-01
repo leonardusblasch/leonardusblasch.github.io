@@ -1,9 +1,8 @@
 let background = function(p)
 {
 	let t = 0;
-	let r = 0.005;
+	let r = 0.0005;
 	let s = 100;
-	let min = 0;
 
     p.setup = function()
 	{
@@ -11,8 +10,7 @@ let background = function(p)
 		let w = b.clientWidth;
 		let h = b.clientHeight;
 
-		s = w / 33;
-		min = p.min(w, h);
+		s = p.max(w, h) / 13;
 
 		let c = p.createCanvas(w, h);
 		c.parent('background');

@@ -1,17 +1,9 @@
-let booksv = ['1mose','2mose','3mose','4mose','5mose','josua','richter','ruth','1samuel','2samuel','1könige','2könige','1chronik','2chronik','esra','nehemia','esther','hiob','psalm','prediger','hohelied','jesaja','jeremia','klagelieder','sprüche','hesekiel','daniel','hosea','joel','amos','obadja','jona','micha','nahum','habakuk','zephanja','haggai','sacharja','maleachi','matthäus','markus','lukas','johannes','apostelgeschichte','römer','1korinther','2korinther','galater','epheser','philipper','kolosser','1thessalonicher','2thessalonicher','1timotheus','2timotheus','titus','philemon','hebräer','jakobus','1petrus','2petrus','1johannes','2johannes','3johannes','judas','offenbarung'];
-
-let all = 'all';
+let prevB = document.getElementById('prev');
+let nextB = document.getElementById('next');
 
 let bsel = document.getElementById('buchS');
 let ksel = document.getElementById('kapitelS');
 let vsel = document.getElementById('versS');
-
-let ball = false;
-let kall = false;
-let vall = false;
-
-let prevB = document.getElementById('prev');
-let nextB = document.getElementById('next');
 
 initBuch();
 
@@ -113,7 +105,6 @@ bsel.onchange = function()
 
 ksel.onchange = function()
 {
-
     initVers();
     vsel.value = 0;
 
@@ -127,20 +118,13 @@ vsel.onchange = function()
 
 function initBuch()
 {
-    for(var i = 0; i < booksv.length; i++)
+    for(var i = 0; i < books.length; i++)
     {
         var opt = document.createElement('option');
         opt.innerHTML = books[i];
         opt.value = i;
         bsel.appendChild(opt);
     }
-
-    /*
-    var opt = document.createElement('option');
-    opt.innerHTML = '+++++++';
-    opt.value = all;
-    bsel.appendChild(opt);
-    */
 
     initKapitel();
     ksel.value = 0;
@@ -160,12 +144,6 @@ function initKapitel()
         opt.value = i;
         ksel.appendChild(opt);
     }
-    /*
-    var opt = document.createElement('option');
-    opt.innerHTML = '+++';
-    opt.value = all;
-    ksel.appendChild(opt);
-    */
 }
 
 function initVers()
@@ -178,26 +156,14 @@ function initVers()
         opt.innerHTML = i + 1;
         opt.value = i;
         vsel.appendChild(opt);
-    }
-
-    /*
-    var opt = document.createElement('option');
-    opt.innerHTML = '+++';
-    opt.value = all;
-    vsel.appendChild(opt);
-    */
+    }    
 }
 
 function query()
 {
-    if(!ball && !kall && !vall)
-    {
-        let vers = document.getElementById('query');
+    let query = document.getElementById('query');
+    query.innerHTML = '';
 
-        vers.innerHTML = '';
-
-        let text = document.createTextNode(bibel[bsel.value][ksel.value][vsel.value]);
-
-        vers.appendChild(text);
-    }
+    let text = document.createTextNode(bibel[bsel.value][ksel.value][vsel.value]);
+    query.appendChild(text);
 }

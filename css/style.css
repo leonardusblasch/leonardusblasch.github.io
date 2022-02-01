@@ -30,16 +30,25 @@ html, body
     padding: 4.2% 4.2% 0 4.2%;
 }
 
-.menu
+.select
 {
-    position: sticky;
-    display: grid;
-    margin: 0%;
-    top: 0;
-    width: 25%;
-    padding: 4.2% 4.2% 0 4.2%;
+	margin: 4.2% 4.2% 0 4.2%;
+	padding: 0%;
+	min-height: 70px;
+    width: 38.2%;
+	display: grid;
     grid-template-columns: auto auto auto;
     gap: 10px
+}
+
+
+.button
+{
+    margin: 0% 4.2% 0 4.2%;
+	padding: 0%;
+    width: 38.2%;
+    display: grid;
+    grid-template-columns: auto 88% auto;
 }
 
 .linkb
@@ -49,4 +58,12 @@ html, body
     font-size: 5vmin;
     background: none;
     border: none;
+}
+
+.query
+{
+    position: relative;
+    display: block;
+    margin: 4.2% 4.2% 0 4.2%;
+    padding: 0%;
 }
