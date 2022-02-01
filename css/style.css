@@ -47,7 +47,7 @@ html, body
 	padding: 0%;
     width: 38.2%;
     display: grid;
-    grid-template-columns: auto 88% auto;
+    grid-template-columns: auto 80% auto;
 }
 
 .linkb
