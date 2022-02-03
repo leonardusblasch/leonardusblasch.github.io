@@ -23,7 +23,7 @@ html, body
 
 .home
 {
-    padding: 4.2% 7.7% 4.2% 7.7%;
+    padding: 4.2% 7.7% 0 7.7%;
 }
 
 .reload
@@ -81,7 +81,7 @@ html, body
 {
     position: relative;
     display: block;
-    margin: 2.4% 4.2% 0 4.2%;
+    margin: 2.4% 4.2% calc(4.2% + 0.7cm) 4.2%;
     padding: 0%;
 }
 
@@ -113,7 +113,19 @@ html, body
     text-decoration: none;
 }
 
-.bottom li
+.controller
 {
-    display: inline-block;
+    position: absolute;
+    margin: 0;
+    top: 0;
+    width: 100%;
+    height: 10%;
+}
+
+.music
+{
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    bottom: calc(10% + 0.7cm);
 }

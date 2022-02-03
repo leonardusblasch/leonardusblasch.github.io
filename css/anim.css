@@ -7,12 +7,11 @@ html, body
     background-color: #520052
 }
 
-.screen
-{
+.screen {
     position: absolute;
     top: 50%;
     width: 100%;
-    background-color: white;
+    background-color: #ffd700;
     animation-name: on;
     animation-delay: 1s;
     animation-duration: 2s;

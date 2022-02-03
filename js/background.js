@@ -6,16 +6,13 @@ let background = function(p)
 
     p.setup = function()
 	{
-		let b = document.getElementById('background');
-		let w = b.clientWidth;
-		let h = b.clientHeight;
+		let d = document.getElementById('background');
+		let w = d.clientWidth;
+		let h = d.clientHeight;
 
 		s = p.max(w, h) / 13;
 
-		let c = p.createCanvas(w, h);
-		c.parent('background');
-		p.noStroke();
-
+		p.createCanvas(w, h);
 	};
 	
 	p.draw = function()
@@ -39,10 +36,12 @@ let background = function(p)
 	
 	p.windowResized = function()
 	{
-		let b = document.getElementById('background');
-		let w = b.clientWidth;
-		let h = b.clientHeight;
-		
+		let d = document.getElementById('background');
+		let w = d.clientWidth;
+		let h = d.clientHeight;
+
+		s = p.max(w, h) / 13;
+
 		p.resizeCanvas(w, h);
     }
 };
