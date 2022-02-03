@@ -18,7 +18,7 @@ function randomBib()
     let rbibel = bibel[rbook][rchap][rvers];
 
     link.href = '../bibel/index.html';
-    link.innerHTML = '<u>' + rinfo + '</u>' + '<br>' + rbibel;
+    link.innerHTML = '<u><strong>' + rinfo + '</strong></u>' + '<br>' + rbibel;
 }
 
 function randomInt(max)
