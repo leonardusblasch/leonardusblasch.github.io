@@ -4,7 +4,7 @@ html, body
     padding: 0%;
     width: 100%;
     min-height: 100%;
-    font-size: 24px;
+    font-size: 142%;
     font-family: 'Brush Script MT', cursive;
     color: #520052;
 }
@@ -28,7 +28,7 @@ html, body
 
 .reload
 {
-    font-size: 52px;
+    font-size: 177%;
     font-weight: 900;
     color: #520052;
     background: none;
@@ -72,7 +72,7 @@ html, body
 {
     font-weight: 900;
     color: #520052;
-    font-size: 27px;
+    font-size: 177%;
     background: none;
     border: none;
 }
@@ -87,14 +87,19 @@ html, body
 
 .bottom {
     position: fixed;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    list-style-type: none;
     margin: 0;
     bottom: 0;
     width: 100%;
-    min-height: 17px;
+    min-height: 0.7cm;
     background: #520052;
     text-align: center;
     color: white;
-    font-size: 15px;
+    font-size: 0.5cm;
     font-family: 'Courier New';
     white-space: nowrap;
 }
@@ -102,7 +107,12 @@ html, body
 .bottom a
 {
     color: white;
-    font-size: 15px;
+    font-size: 0.5cm;
     font-family: 'Courier New';
     text-decoration: none;
+}
+
+.bottom li
+{
+    display: inline-block;
 }
