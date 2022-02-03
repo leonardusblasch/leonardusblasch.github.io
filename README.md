@@ -1,1 +1,1 @@
-Gott und so. :)
+![News:Maranatha](MARANATHA.jpg)
