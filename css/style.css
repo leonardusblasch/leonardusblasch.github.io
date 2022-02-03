@@ -4,7 +4,7 @@ html, body
     padding: 0%;
     width: 100%;
     min-height: 100%;
-    font-size: 3vmin;
+    font-size: 24px;
     font-family: 'Brush Script MT', cursive;
     color: #520052;
 }
@@ -21,6 +21,28 @@ html, body
     overflow-y: hidden;
 }
 
+.reload
+{
+    position: fixed;
+    left: 4.2%;
+    top: 10%;
+    font-size: 42px;
+    font-weight: 900;
+    color: #520052;
+    background: none;
+    border: none;
+}
+
+.random {
+    position: fixed;
+    display: block;
+    width: 80%;
+    left: 10%;
+    top: 10%;
+    text-decoration: none;
+    color: #520052;
+}
+
 .unit
 {
     position: relative;
@@ -31,28 +53,26 @@ html, body
 
 .select
 {
-	margin: 4.2% 4.2% 0 4.2%;
-	padding: 0%;
+	margin: 2.4% 4.2% 0 4.2%;
 	min-height: 70px;
-    width: 38.2%;
+    max-width: 10cm;
 	display: grid;
     grid-template-columns: auto auto auto;
-    gap: 10px
+    grid-gap: 10px
 }
-
 
 .button
 {
-    margin: 0% 4.2% 0 4.2%;
-	padding: 0%;
-    width: 38.2%;
+    color: #520052;
     display: grid;
+    margin: 0% 4.2% 0 4.2%;
+    max-width: 10cm;
     grid-template-columns: auto 80% auto;
 }
 
 .linkb
 {
-    font-weight: bolder;
+    font-weight: 900;
     color: #520052;
     font-size: 5vmin;
     background: none;
@@ -63,6 +83,28 @@ html, body
 {
     position: relative;
     display: block;
-    margin: 4.2% 4.2% 0 4.2%;
+    margin: 2.4% 4.2% 0 4.2%;
     padding: 0%;
+}
+
+.bottom {
+    position: fixed;
+    display: table;
+    margin: 0;
+    bottom: 0;
+    width: 100%;
+    min-height: 17px;
+    background: #520052;
+    text-align: center;
+    color: white;
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+.bottom a
+{
+    color: white;
+    font-size: 15px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    text-decoration: none;
 }
