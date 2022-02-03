@@ -65,7 +65,7 @@ html, body
     display: grid;
     margin: 0% 4.2% 0 4.2%;
     max-width: 10cm;
-    grid-template-columns: auto 80% auto;
+    grid-template-columns: auto auto auto;
 }
 
 .linkb
@@ -85,7 +85,8 @@ html, body
     padding: 0%;
 }
 
-.bottom {
+.bottom
+{
     position: fixed;
     display: flex;
     flex-wrap: wrap;
