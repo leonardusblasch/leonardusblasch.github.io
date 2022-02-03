@@ -21,11 +21,13 @@ html, body
     overflow-y: hidden;
 }
 
+.home
+{
+    padding: 4.2% 7.7% 4.2% 7.7%;
+}
+
 .reload
 {
-    position: fixed;
-    left: 4.2%;
-    top: 10%;
     font-size: 42px;
     font-weight: 900;
     color: #520052;
@@ -33,12 +35,8 @@ html, body
     border: none;
 }
 
-.random {
-    position: fixed;
-    display: block;
-    width: 80%;
-    left: 10%;
-    top: 10%;
+.random
+{
     text-decoration: none;
     color: #520052;
 }
@@ -74,7 +72,7 @@ html, body
 {
     font-weight: 900;
     color: #520052;
-    font-size: 5vmin;
+    font-size: 27px;
     background: none;
     border: none;
 }
@@ -89,7 +87,6 @@ html, body
 
 .bottom {
     position: fixed;
-    display: table;
     margin: 0;
     bottom: 0;
     width: 100%;
@@ -98,13 +95,14 @@ html, body
     text-align: center;
     color: white;
     font-size: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Courier New';
+    white-space: nowrap;
 }
 
 .bottom a
 {
     color: white;
     font-size: 15px;
-    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-family: 'Courier New';
     text-decoration: none;
 }
