@@ -86,34 +86,6 @@ html, body
     padding: 0%;
 }
 
-.bottom
-{
-    position: fixed;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    align-items: center;
-    list-style-type: none;
-    margin: 0;
-    bottom: 0;
-    width: 100%;
-    min-height: 0.7cm;
-    background: #520052;
-    text-align: center;
-    color: white;
-    font-size: 0.5cm;
-    font-family: 'Courier New';
-    white-space: nowrap;
-}
-
-.bottom a
-{
-    color: white;
-    font-size: 0.5cm;
-    font-family: 'Courier New';
-    text-decoration: none;
-}
-
 .settings
 {
     position: absolute;
