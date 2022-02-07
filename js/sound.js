@@ -1,7 +1,7 @@
-let bars, beats, parts;
-let changedSettings = false;
+let tone, tempo;
+let changedsound = false;
 
-let settings = function (p)
+let sound = function (p)
 {
 	let wS;
 
@@ -15,16 +15,14 @@ let settings = function (p)
 
 	p.windowResized = function ()
 	{
-		let barsI = bars.value();
-		let beatsI = beats.value();
-		let partsI = parts.value();
-		bars.remove();
-		beats.remove();
-		parts.remove();
-		Init(barsI, beatsI, partsI);
+		toneI = tone.value();
+		tempoI = tempo.value();
+		tone.remove();
+		tempo.remove();
+		Init(toneI, tempoI);
 	};
 
-	function Init(barsI = 1, beatsI = 1, partsI = 1)
+	function Init(toneI = 1, tempoI = 1)
 	{
 		let d = document.getElementById('settings');
 		let w = d.clientWidth;
@@ -32,15 +30,12 @@ let settings = function (p)
 
 		wS = w / 10;
 
-		bars = new Slider('Bars', 1, 16, barsI, wS, h / 2, wS * 2, h * 0.1);
-		beats = new Slider('Beats', 1, 8, beatsI, 4 * wS, h / 2, wS * 2, h * 0.1);
-		parts = new Slider('Parts', 1, 4, partsI, 7 * wS, h / 2, wS * 2, h * 0.1);
-    }
+		octamin = new Slider('Tone', 1, 10, toneI, wS, h / 2, wS, h * 0.1);
+		octamax = new Slider('Tempo', 1, 420, tempoI, 3 * wS, h / 2, wS, h * 0.1);
+	}
 
-	class Slider
-	{
-		constructor(text, min, max, value, x, y, w, h)
-		{
+	class Slider {
+		constructor(text, min, max, value, x, y, w, h) {
 			this.text = text;
 			this.span = p.createSpan(text + ' (' + value + ')');
 			this.span.position(x, 0);
@@ -52,24 +47,21 @@ let settings = function (p)
 			this.slider.changed(this.changed.bind(this));
 		}
 
-		changed()
-		{
+		changed() {
 			this.span.remove();
 			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
 			this.span.position(this.slider.x, 0);
-			changedSettings != changedSettings;
+			changedsound != changedsound;
 		}
 
-		value()
-		{
+		value() {
 			return this.slider.value();
 		}
 
-		remove()
-		{
+		remove() {
 			this.span.remove();
 			this.slider.remove();
-        }
+		}
 	}
 };
-new p5(settings, 'settings');
+new p5(sound, 'sound');

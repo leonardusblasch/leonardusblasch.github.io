@@ -1,25 +1,22 @@
 let music = function (p)
 {
-	let s = 100;
+	let grid;
 
 	p.setup = function ()
 	{
+		p.noStroke();
+
 		let d = document.getElementById('music');
 		let w = d.clientWidth;
 		let h = d.clientHeight;
 
-		s = p.max(w, h) / 13;
-
-		let c = p.createCanvas(w, h);
-		c.parent('music');
-		p.noStroke();
-
+		p.createCanvas(w, h);
 	};
 
 	p.draw = function ()
 	{
 		p.clear();
-		p.background(r.value(), g.value(), b.value(), 77);
+		p.background(255, 255, 255, 100);
 	};
 
 	p.windowResized = function ()
@@ -30,5 +27,13 @@ let music = function (p)
 
 		p.resizeCanvas(w, h);
 	}
+
+	class Grid
+	{
+		constructor(bar, beat, part)
+		{
+
+        }
+    }
 };
 new p5(music, 'music');

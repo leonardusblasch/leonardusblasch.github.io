@@ -1,7 +1,7 @@
-let bars, beats, parts;
-let changedSettings = false;
+let octamin, octamax;
+let changednotes = false;
 
-let settings = function (p)
+let notes = function (p)
 {
 	let wS;
 
@@ -15,16 +15,14 @@ let settings = function (p)
 
 	p.windowResized = function ()
 	{
-		let barsI = bars.value();
-		let beatsI = beats.value();
-		let partsI = parts.value();
-		bars.remove();
-		beats.remove();
-		parts.remove();
-		Init(barsI, beatsI, partsI);
+		octaminI= octamin.value();
+		octamaxI = octamax.value();
+		octamin.remove();
+		octamax.remove();
+		Init(octaminI, octamaxI);
 	};
 
-	function Init(barsI = 1, beatsI = 1, partsI = 1)
+	function Init(octaminI = 1, octamaxI = 1)
 	{
 		let d = document.getElementById('settings');
 		let w = d.clientWidth;
@@ -32,13 +30,11 @@ let settings = function (p)
 
 		wS = w / 10;
 
-		bars = new Slider('Bars', 1, 16, barsI, wS, h / 2, wS * 2, h * 0.1);
-		beats = new Slider('Beats', 1, 8, beatsI, 4 * wS, h / 2, wS * 2, h * 0.1);
-		parts = new Slider('Parts', 1, 4, partsI, 7 * wS, h / 2, wS * 2, h * 0.1);
-    }
+		octamin = new Slider('Min', 1, 8, octaminI, wS, h / 2, wS, h * 0.1);
+		octamax = new Slider('Max', 1, 8, octamaxI, 3 * wS, h / 2, wS, h * 0.1);
+	}
 
-	class Slider
-	{
+	class Slider {
 		constructor(text, min, max, value, x, y, w, h)
 		{
 			this.text = text;
@@ -57,7 +53,7 @@ let settings = function (p)
 			this.span.remove();
 			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
 			this.span.position(this.slider.x, 0);
-			changedSettings != changedSettings;
+			changednotes != changednotes;
 		}
 
 		value()
@@ -69,7 +65,7 @@ let settings = function (p)
 		{
 			this.span.remove();
 			this.slider.remove();
-        }
+		}
 	}
 };
-new p5(settings, 'settings');
+new p5(notes, 'notes');
