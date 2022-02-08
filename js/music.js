@@ -51,7 +51,13 @@ let music = function (p)
 
 		if(reload)
 		{
-			if (tone != toneS.value()) { tone = toneS.value(); player = new Player(oscmode[tone - 1]); }
+			if (tone != toneS.value())
+			{
+				tone = toneS.value();
+				player = new Player(oscmode[tone - 1]);
+				prev = new p5.Oscillator(oscmode[tone - 1]);
+				prev.amp(1);
+			}
 			else if (tempo != tempoS.value()) { tempo = tempoS.value(); }
 			else if (grid.min != octamin.value() || grid.max != octamax.value())
 			{
