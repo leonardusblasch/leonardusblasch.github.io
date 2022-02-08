@@ -38,13 +38,13 @@ let settings = function (p)
 		playB.position(size, h / 2 - size / 4);
 		playB.style('width', buttonSize + 'px');
 		playB.style('height', buttonSize + 'px');
-		playB.mousePressed();
+		playB.mouseClicked(function () { playB.html(play ? '▶' : '⬛'); play = !play; });
 
 		resetB = p.createButton('⟳');
 		resetB.position(3 * size, h / 2 - size / 4);
 		resetB.style('width', buttonSize + 'px');
 		resetB.style('height', buttonSize + 'px');
-		resetB.mousePressed();
+		resetB.mouseClicked(function () { reset = true; });
 
 		bars = new Slider('Bars', 1, 16, barsI, 5 * size, h / 2, size * 2, h * 0.1);
 		beats = new Slider('Beats', 1, 8, beatsI, 8 * size, h / 2, size * 2, h * 0.1);

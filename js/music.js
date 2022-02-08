@@ -1,23 +1,35 @@
 let reload = false;
 let reset = false;
 let play = false;
+let mouse = false;
 
 let music = function (p)
 {
 	let grid;
-	let t, tt;
+	let tone, tempo;
 	let sizeW, sizeH;
+
+	let player;
+
+	let prev;
+	let oscmode = ['sine', 'triangle', 'sawtooth', 'square']; 
 
 	p.setup = function ()
 	{
+		player = new Player();
+		prev = new p5.Oscillator('square');
+		prev.amp(1);
+
 		p.noStroke();
 		p.pixelDensity(1);
 		let d = document.getElementById('music');
+		d.onmouseover = function () { mouse = true; }
+		d.onmouseout = function () { mouse = false; }
 		let w = d.clientWidth;
 		let h = d.clientHeight;
 
-		t = tone.value();
-		tt = tempo.value();
+		tone = toneS.value();
+		tempo = tempoS.value();
 
 		let partsN = bars.value() * beats.value() * parts.value();
 		sizeW = (partsN > 32) ? w / 32 : w / partsN;
@@ -27,6 +39,8 @@ let music = function (p)
 		p.createCanvas(partsN * sizeW, octaN * sizeH);
 
 		grid = new Grid(bars.value(), beats.value(), parts.value(), octamin.value(), octamax.value());
+
+		player.tact = 60.0 / tempo * 1000;
 	};
 
 	p.draw = function ()
@@ -37,8 +51,8 @@ let music = function (p)
 
 		if(reload)
 		{
-			if (t != tone.value()) { t = tone.value(); }
-			else if (tt != tempo.value()) { tt = tempo.value(); }
+			if (tone != toneS.value()) { tone = toneS.value(); player = new Player(oscmode[tone - 1]); }
+			else if (tempo != tempoS.value()) { tempo = tempoS.value(); }
 			else if (grid.min != octamin.value() || grid.max != octamax.value())
 			{
 				if (octamin.value() > octamax.value())
@@ -57,8 +71,22 @@ let music = function (p)
 				resize();
 			}
 
+			player.tact = 60.0 / tempo / grid.parts * 1000;
 			reload = false;
-        }
+		}
+
+		if (reset)
+		{
+			grid.array = [];
+			grid.clear();
+			grid.setup();
+			reset = false;
+		}
+
+		if (play)
+		{
+			player.play();
+		}
 	};
 
 	p.windowResized = function ()
@@ -68,7 +96,10 @@ let music = function (p)
 
 	p.mouseClicked = function ()
 	{
-		grid.touch(p.mouseX, p.mouseY);
+		if (mouse)
+		{
+			grid.touch(p.mouseX, p.mouseY);
+		}
     }
 
 	function resize()
@@ -84,6 +115,39 @@ let music = function (p)
 		p.resizeCanvas(partsN * sizeW, octaN * sizeH);
 
 		grid.init();
+	}
+
+	class Player
+	{
+		constructor(type = 'sine')
+		{
+			this.zero = p.millis();
+			this.tact = 1;
+			this.array = [];
+			for (let i = 0; i < 63; i++)
+			{
+				let n = i - 41;
+				let osc = new p5.Oscillator(type);
+				osc.amp(1);
+				osc.freq(frequency(n));
+				this.array.push(osc);
+            }
+		}
+
+		play()
+		{
+			let delta = (p.millis() - this.zero);
+
+			if (delta > this.tact)
+			{
+				for (let i = 0; i < this.array.length; i++)
+				{
+					this.array[i].start();
+					this.array[i].stop(this.tact / 1000);
+                }
+				this.zero = p.millis();
+            }
+		}
     }
 
 	class Grid
@@ -95,8 +159,8 @@ let music = function (p)
 			this.parts = parts;
 			this.min = min;
 			this.max = max;
-			this.init(false);
 			this.array = [];
+			this.init(false);
 		}
 
 		init(reset = true)
@@ -108,7 +172,6 @@ let music = function (p)
 			}
 			this.graph = p.createGraphics(p.width, p.height);
 			this.notes = p.createGraphics(p.width, p.height);
-			this.graph.background(255, 155, 0, 42);
 
 			this.graph.strokeWeight(1);
 			this.graph.stroke(52);
@@ -139,10 +202,8 @@ let music = function (p)
 			this.graph.strokeWeight(5);
 			this.graph.line(x, 0, x, p.height);
 
-			if (reset)
-			{
-				this.draw();
-            }
+			this.clear();
+			this.setup();
 		}
 
 		touch(mx, my)
@@ -150,38 +211,76 @@ let music = function (p)
 			let x = p.floor(mx / sizeW);
 			let y = p.floor(my / sizeH);
 
-			if (this.array.some(n => n.x == x && n.y == y))
+			let len = this.beats * this.parts;
+
+			let bar = p.floor(x / len);
+			let beat = p.floor((x - (bar * len)) / this.parts);
+			let part = p.floor(x - (bar * len) - (beat * this.parts));
+			let octa = this.max - p.floor(y / 7);
+			let note = 6 - (y % 7);
+
+			if (this.array.some(n => n.bar == bar && n.beat == beat && n.part == part && n.octa == octa && n.note == note))
 			{
-				let i = this.array.indexOf(this.array.find(n => n.x == x && n.y == y));
+				let i = this.array.indexOf(this.array.find(n => n.bar == bar && n.beat == beat && n.part == part && n.octa == octa && n.note == note));
 				this.array.splice(i, 1);
 			}
 			else
 			{
-				this.array.push(new Note(x, y));
+				this.array.push(new Note(bar, beat, part, octa, note));
 			}
 
-			this.draw();
+			this.setup();
+
+			let n = (octa - 4) * 7 + (note - 5);
+
+			prev.start();
+			prev.freq(frequency(n));
+			prev.stop(player.tact / 1000);
 		}
 
-		draw()
+		clear()
+		{
+			for (let i = this.array.length - 1; i >= 0; i--)
+			{
+				let n = this.array[i];
+
+				if (n.bar >= this.bars || n.beat >= this.beats || n.part >= this.parts || n.octa < this.min || n.octa > this.max)
+				{
+					this.array.splice(i, 1);
+                }
+            }
+        }
+
+		setup()
 		{
 			this.notes.clear();
 
 			for (let i = 0; i < this.array.length; i++)
 			{
-				let current = this.array[i];
-				this.notes.rect(current.x * sizeW, current.y * sizeH, sizeW, sizeH);
+				let n = this.array[i];
+
+				let x = (n.bar * (this.beats * this.parts) + n.beat * this.parts + n.part) * sizeW;
+				let y = p.height - ((((n.octa - this.min) * 7) + n.note + 1) * sizeH);
+				this.notes.rect(x, y, sizeW, sizeH);
 			}
         }
 	}
 
 	class Note
 	{
-		constructor(x, y)
+		constructor(bar, beat, part, octa, note)
 		{
-			this.x = x;
-			this.y = y;
+			this.bar = bar;
+			this.beat = beat;
+			this.part = part;
+			this.octa = octa;
+			this.note = note;
         }
+	}
+
+	function frequency(n)
+	{
+		return 440 * p.pow(2, n / 12.0);
     }
 };
 new p5(music, 'music');

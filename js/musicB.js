@@ -1,4 +1,4 @@
-let tone, tempo;
+let toneS, tempoS;
 let octamin, octamax;
 
 let sound = function (p)
@@ -13,18 +13,18 @@ let sound = function (p)
 
 	p.windowResized = function ()
 	{
-		let toneI = tone.value();
-		let tempoI = tempo.value();
+		let toneSI = toneS.value();
+		let tempoSI = tempoS.value();
 		let octaminI = octamin.value();
 		let octamaxI = octamax.value();
-		tone.remove();
-		tempo.remove();
+		toneS.remove();
+		tempoS.remove();
 		octamin.remove();
 		octamax.remove();
-		Init(toneI, tempoI, octaminI, octamaxI);
+		Init(toneSI, tempoSI, octaminI, octamaxI);
 	};
 
-	function Init(toneI = 1, tempoI = 1, octaminI = 0, octamaxI = 0)
+	function Init(toneI = 1, tempoI = 42, octaminI = 0, octamaxI = 0)
 	{
 		let d = document.getElementById('bottomsettings');
 		let w = d.clientWidth;
@@ -32,14 +32,16 @@ let sound = function (p)
 
 		let size = w / 11;
 
-		tone = new Slider('Tone', 1, 10, toneI, size, h / 2, size, h * 0.1);
-		tempo = new Slider('Tempo', 1, 420, tempoI, 3 * size, h / 2, 3 * size, h * 0.1);
+		toneS = new Slider('Tone', 1, 4, toneI, size, h / 2, size, h * 0.1);
+		tempoS = new Slider('Tempo', 42, 420, tempoI, 3 * size, h / 2, 3 * size, h * 0.1);
 		octamin = new Slider('Min', 0, 8, octaminI, 7 * size, h / 2, size, h * 0.1);
 		octamax = new Slider('Max', 0, 8, octamaxI, 9 * size, h / 2, size, h * 0.1);
 	}
 
-	class Slider {
-		constructor(text, min, max, value, x, y, w, h) {
+	class Slider
+	{
+		constructor(text, min, max, value, x, y, w, h)
+		{
 			this.text = text;
 			this.span = p.createSpan(text + ' (' + value + ')');
 			this.span.position(x, 0);
@@ -51,25 +53,29 @@ let sound = function (p)
 			this.slider.changed(this.changed.bind(this));
 		}
 
-		changed() {
+		changed()
+		{
 			this.span.remove();
 			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
 			this.span.position(this.slider.x, 0);
 			reload = true;
 		}
 
-		value() {
+		value()
+		{
 			return this.slider.value();
 		}
 
-		changevalue(val) {
+		changevalue(val)
+		{
 			this.slider.value(val);
 			this.span.remove();
 			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
 			this.span.position(this.slider.x, 0);
 		}
 
-		remove() {
+		remove()
+		{
 			this.span.remove();
 			this.slider.remove();
 		}
