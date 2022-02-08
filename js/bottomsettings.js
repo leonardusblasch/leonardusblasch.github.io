@@ -1,10 +1,8 @@
 let tone, tempo;
-let changedsound = false;
+let octamin, octamax;
 
 let sound = function (p)
 {
-	let wS;
-
 	p.setup = function ()
 	{
 		p.noCanvas();
@@ -15,23 +13,29 @@ let sound = function (p)
 
 	p.windowResized = function ()
 	{
-		toneI = tone.value();
-		tempoI = tempo.value();
+		let toneI = tone.value();
+		let tempoI = tempo.value();
+		let octaminI = octamin.value();
+		let octamaxI = octamax.value();
 		tone.remove();
 		tempo.remove();
-		Init(toneI, tempoI);
+		octamin.remove();
+		octamax.remove();
+		Init(toneI, tempoI, octaminI, octamaxI);
 	};
 
-	function Init(toneI = 1, tempoI = 1)
+	function Init(toneI = 1, tempoI = 1, octaminI = 0, octamaxI = 0)
 	{
-		let d = document.getElementById('settings');
+		let d = document.getElementById('bottomsettings');
 		let w = d.clientWidth;
 		let h = d.clientHeight;
 
-		wS = w / 10;
+		let size = w / 11;
 
-		octamin = new Slider('Tone', 1, 10, toneI, wS, h / 2, wS, h * 0.1);
-		octamax = new Slider('Tempo', 1, 420, tempoI, 3 * wS, h / 2, wS, h * 0.1);
+		tone = new Slider('Tone', 1, 10, toneI, size, h / 2, size, h * 0.1);
+		tempo = new Slider('Tempo', 1, 420, tempoI, 3 * size, h / 2, 3 * size, h * 0.1);
+		octamin = new Slider('Min', 0, 8, octaminI, 7 * size, h / 2, size, h * 0.1);
+		octamax = new Slider('Max', 0, 8, octamaxI, 9 * size, h / 2, size, h * 0.1);
 	}
 
 	class Slider {
@@ -51,11 +55,18 @@ let sound = function (p)
 			this.span.remove();
 			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
 			this.span.position(this.slider.x, 0);
-			changedsound != changedsound;
+			reload = true;
 		}
 
 		value() {
 			return this.slider.value();
+		}
+
+		changevalue(val) {
+			this.slider.value(val);
+			this.span.remove();
+			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
+			this.span.position(this.slider.x, 0);
 		}
 
 		remove() {
@@ -64,4 +75,4 @@ let sound = function (p)
 		}
 	}
 };
-new p5(sound, 'sound');
+new p5(sound, 'bottomsettings');

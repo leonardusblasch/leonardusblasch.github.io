@@ -1,10 +1,8 @@
+﻿let playB, resetB;
 let bars, beats, parts;
-let changedSettings = false;
 
 let settings = function (p)
 {
-	let wS;
-
 	p.setup = function ()
 	{
 		p.noCanvas();
@@ -15,6 +13,8 @@ let settings = function (p)
 
 	p.windowResized = function ()
 	{
+		playB.remove();
+		resetB.remove();
 		let barsI = bars.value();
 		let beatsI = beats.value();
 		let partsI = parts.value();
@@ -26,15 +26,29 @@ let settings = function (p)
 
 	function Init(barsI = 1, beatsI = 1, partsI = 1)
 	{
-		let d = document.getElementById('settings');
+		let d = document.getElementById('topsettings');
 		let w = d.clientWidth;
 		let h = d.clientHeight;
 
-		wS = w / 10;
+		let size = w / 14;
 
-		bars = new Slider('Bars', 1, 16, barsI, wS, h / 2, wS * 2, h * 0.1);
-		beats = new Slider('Beats', 1, 8, beatsI, 4 * wS, h / 2, wS * 2, h * 0.1);
-		parts = new Slider('Parts', 1, 4, partsI, 7 * wS, h / 2, wS * 2, h * 0.1);
+		let buttonSize = ((size / 2) < 33) ? 33 : size / 2;
+
+		playB = p.createButton('▶');
+		playB.position(size, h / 2 - size / 4);
+		playB.style('width', buttonSize + 'px');
+		playB.style('height', buttonSize + 'px');
+		playB.mousePressed();
+
+		resetB = p.createButton('⟳');
+		resetB.position(3 * size, h / 2 - size / 4);
+		resetB.style('width', buttonSize + 'px');
+		resetB.style('height', buttonSize + 'px');
+		resetB.mousePressed();
+
+		bars = new Slider('Bars', 1, 16, barsI, 5 * size, h / 2, size * 2, h * 0.1);
+		beats = new Slider('Beats', 1, 8, beatsI, 8 * size, h / 2, size * 2, h * 0.1);
+		parts = new Slider('Parts', 1, 4, partsI, 11 * size, h / 2, size * 2, h * 0.1);
     }
 
 	class Slider
@@ -57,7 +71,7 @@ let settings = function (p)
 			this.span.remove();
 			this.span = p.createSpan(this.text + ' (' + this.slider.value() + ')');
 			this.span.position(this.slider.x, 0);
-			changedSettings != changedSettings;
+			reload = true;
 		}
 
 		value()
@@ -72,4 +86,4 @@ let settings = function (p)
         }
 	}
 };
-new p5(settings, 'settings');
+new p5(settings, 'topsettings');
