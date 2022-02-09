@@ -18,6 +18,8 @@ let music = function (p)
 
 	p.setup = function ()
 	{
+		rev = new p5.Delay();
+
 		p.pixelDensity(1);
 
 		prev = new p5.MonoSynth();
@@ -60,13 +62,16 @@ let music = function (p)
 			else if (tempo != tempoS.value()) { tempo = tempoS.value(); }
 			else if (grid.min != octamin.value() || grid.max != octamax.value())
 			{
-				if (octamin.value() > octamax.value())
+				if (octamax.value() < octamin.value())
 				{
-					octamin.changevalue(octamax.value());
+					octamax.changevalue(octamin.value());
 				}
 				grid.min = octamin.value();
 				grid.max = octamax.value();
 				resize();
+
+				let d = document.getElementById('music');
+				d.scrollTop = p.height;
 			}
 			else
 			{
@@ -92,6 +97,10 @@ let music = function (p)
 		{
 			player.play();
 		}
+		else
+		{
+			player.line();
+        }
 	};
 
 	p.windowResized = function ()
@@ -129,28 +138,44 @@ let music = function (p)
 		{
 			this.synth = new p5.PolySynth(p5.MonoSynth, 7 * 8);
 			this.zero = p.millis();
-			this.count = 0;
+			this.count = -1;
+			this.off = 0;
 		}
+
+		line()
+		{
+			p.line(this.off, 0, this.off, p.height);
+        }
 
 		play()
 		{
 			let delta = (p.millis() - this.zero) / 1000;
 
-			if (delta > tact)
+			if (this.count != -1)
 			{
+				this.off = p.map(((this.count) * tact) + delta, 0, len * tact, 0, p.width);
+
+				p.line(this.off, 0, this.off, p.height);
+
+				let d = document.getElementById('music');
+				d.scrollLeft = this.off - d.clientWidth / 2;
+			}
+
+			if (this.count == -1 || delta > tact)
+			{
+				this.count++;
+
 				let sounds = grid.array.filter(n => ((n.bar * (grid.beats * grid.parts) + (n.beat * grid.parts) + n.part) == this.count));
 
 				for (let i = 0; i < sounds.length; i++)
 				{
 					let n = notename[sounds[i].note] + sounds[i].octa;
-					this.synth.play(n, 1, 0, tact * 0.9);
+					this.synth.play(n, 1, 0, tact);
 				}
 
-
-				this.count++;
 				if (this.count >= len)
 				{
-					this.count = 0;
+					this.count = -1;
 				}
 
 				this.zero = p.millis();
