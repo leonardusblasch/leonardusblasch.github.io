@@ -26,7 +26,7 @@ let settings = function (p)
 
 	function Init(barsI = 1, beatsI = 1, partsI = 1)
 	{
-		let d = document.getElementById('topsettings');
+		let d = document.getElementById('musicT');
 		let w = d.clientWidth;
 		let h = d.clientHeight;
 
@@ -86,4 +86,4 @@ let settings = function (p)
         }
 	}
 };
-new p5(settings, 'topsettings');
+new p5(settings, 'musicT');

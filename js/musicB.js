@@ -24,9 +24,9 @@ let sound = function (p)
 		Init(toneSI, tempoSI, octaminI, octamaxI);
 	};
 
-	function Init(toneI = 1, tempoI = 42, octaminI = 0, octamaxI = 0)
+	function Init(toneI = 1, tempoI = 42, octaminI = 4, octamaxI = 4)
 	{
-		let d = document.getElementById('bottomsettings');
+		let d = document.getElementById('musicB');
 		let w = d.clientWidth;
 		let h = d.clientHeight;
 
@@ -81,4 +81,4 @@ let sound = function (p)
 		}
 	}
 };
-new p5(sound, 'bottomsettings');
+new p5(sound, 'musicB');
