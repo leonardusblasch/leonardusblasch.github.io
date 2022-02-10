@@ -5,20 +5,23 @@ let mouse = false;
 
 let music = function (p)
 {
+	let osctypes = ['sine', 'triangle', 'square', 'sawtooth'];
+	let notename = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+
 	let grid;
-	let tone, tempo;
 	let sizeW, sizeH;
 
-	let player;
-
-	let notename = ['A', 'B', 'C', 'D', 'E', 'F', 'G'];
+	let tone, tempo;
 	let tact = 1;
 	let len = 1;
-	let prev;
 
+	let prev;
+	let player;
 
 	p.setup = function ()
 	{
+		rev = new p5.Delay();
+
 		p.pixelDensity(1);
 
 		prev = new p5.MonoSynth();
@@ -51,7 +54,7 @@ let music = function (p)
 		p.image(grid.graph, 0, 0);
 		p.image(grid.notes, 0, 0);
 
-		if (reload)
+		if(reload)
 		{
 			if (tone != toneS.value())
 			{
@@ -81,7 +84,6 @@ let music = function (p)
 			}
 
 			tact = 60.0 / (tempo * grid.parts);
-			player = new Player();
 			reload = false;
 		}
 
@@ -100,7 +102,7 @@ let music = function (p)
 		else
 		{
 			player.line();
-		}
+        }
 	};
 
 	p.windowResized = function ()
@@ -115,7 +117,7 @@ let music = function (p)
 		{
 			grid.touch(p.mouseX, p.mouseY);
 		}
-	}
+    }
 
 	function resize()
 	{
@@ -136,16 +138,21 @@ let music = function (p)
 	{
 		constructor()
 		{
-			this.synth = new p5.PolySynth(PeriodicWave, 7 * 8);
+			this.synth = new p5.PolySynth(OscVoice, 7 * 8);
 			this.zero = p.millis();
 			this.count = -1;
 			this.off = 0;
 		}
 
+		osc()
+		{
+			this.synth = new p5.PolySynth(OscVoice, 7 * 8);
+        }
+
 		line()
 		{
 			p.line(this.off, 0, this.off, p.height);
-		}
+        }
 
 		play()
 		{
@@ -179,9 +186,9 @@ let music = function (p)
 				}
 
 				this.zero = p.millis();
-			}
+            }
 		}
-	}
+    }
 
 	class Grid
 	{
@@ -216,7 +223,7 @@ let music = function (p)
 				let y = i * sizeH;
 				this.graph.line(0, y, p.width, y);
 			}
-
+			
 			let x = 0;
 			for (let bar = 0; bar < this.bars; bar++)
 			{
@@ -250,9 +257,9 @@ let music = function (p)
 				if (n.bar >= this.bars || n.beat >= this.beats || n.part >= this.parts || n.octa < this.min || n.octa > this.max)
 				{
 					this.array.splice(i, 1);
-				}
-			}
-		}
+                }
+            }
+        }
 
 		setup()
 		{
@@ -307,15 +314,18 @@ let music = function (p)
 			this.part = part;
 			this.octa = octa;
 			this.note = note;
-		}
+        }
 	}
 
-	function getEnv()
+	function OscVoice()
 	{
-		let half = tact / 2;
-		return new p5.Envelope(half, 1, tact, 0)
-    }
+		p5.MonoSynth.call(this);
+		this.oscillator.setType(osctypes[tone - 1]);
+	}
+	OscVoice.prototype = Object.create(p5.MonoSynth.prototype);
+	OscVoice.prototype.constructor = OscVoice;
 
+	/*
 	function PeriodicWave(params)
 	{
 		p5.AudioVoice.call(this);
@@ -328,14 +338,11 @@ let music = function (p)
 		this.osc.disconnect();
 		this.osc.start();
 
-		//this.env = new p5.Envelope(0.021, 0.025, 0.025, 0.025, 0.95, 0.33, 0.25);
-
-		this.env = getEnv();
+		this.env = new p5.Envelope(0.021, 0.025, 0.025, 0.025, 0.95, 0.33, 0.25);
 		this.env.disconnect();
 
 		this.filter = new p5.LowPass();
 		this.filter.set(22050, 5);
-
 
 		this.env.connect(this.filter);
 		this.osc.connect(this.filter);
@@ -343,7 +350,6 @@ let music = function (p)
 		this.connect();
 
 		this.filter.set(22050, 5);
-
 
 		this.setParams = function (params)
 		{
@@ -361,22 +367,16 @@ let music = function (p)
 		this.play = function ()
 		{
 			this.env.play(this.filter);
-
 		}
 
 		this.triggerAttack = function (note, velocity, secondsFromNow)
 		{
 			var secondsFromNow = secondsFromNow || 0;
 
-			//triggerAttack uses ._setNote to convert a midi string to a frequency if necessary
-			var freq = typeof note === 'string' ? this._setNote(note)
-				: typeof note === 'number' ? note : 440;
-			var vel = velocity || 1;
-			// this.env.setRange(this.env.aLevel / velocity,0);
+			var freq = typeof note === 'string' ? this._setNote(note) : typeof note === 'number' ? note : 440;
 			this._isOn = true;
 			this.osc.freq(freq, 0, secondsFromNow);
 			this.env.triggerAttack(this.filter, secondsFromNow);
-
 		}
 
 		this.triggerRelease = function (secondsFromNow)
@@ -387,13 +387,9 @@ let music = function (p)
 		}
 
 	}
-
-	PeriodicWave.prototype = new p5.AudioVoice();
+	PeriodicWave.prototype = Object.create(p5.AudioVoice.prototype); 
 	PeriodicWave.prototype.constructor = PeriodicWave;
 
-
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	// A typical synth class which inherits from AudioVoice class
 	function SquareVoice()
 	{
 
@@ -401,11 +397,9 @@ let music = function (p)
 
 		this.oscillator.setType('square');
 	}
-	SquareVoice.prototype = Object.create(p5.MonoSynth.prototype);  // browsers support ECMAScript 5 ! warning for compatibility with older browsers
+	SquareVoice.prototype = Object.create(p5.MonoSynth.prototype);
 	SquareVoice.prototype.constructor = SquareVoice;
 
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	// A Detuned synth
 	function DetunedOsc()
 	{
 
@@ -448,10 +442,8 @@ let music = function (p)
 			this.oscTwo.freq(freq + this.detune, 0, secondsFromNow);
 			this.env.ramp(this.output, secondsFromNow, this.env.aLevel);
 		}
-
 	}
-
-	DetunedOsc.prototype = Object.create(p5.MonoSynth.prototype);
+	DetunedOsc.prototype = Object.create(p5.MonoSynth.prototype); 
 	DetunedOsc.prototype.constructor = DetunedOsc;
 
 
@@ -497,7 +489,9 @@ let music = function (p)
 		}
 
 	}
-	AdditiveSynth.prototype = Object.create(p5.MonoSynth.prototype);
+	AdditiveSynth.prototype = Object.create(p5.MonoSynth.prototype); 
 	AdditiveSynth.prototype.constructor = AdditiveSynth;
+	*/
+
 };
 new p5(music, 'music');
