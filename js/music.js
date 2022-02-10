@@ -1,4 +1,4 @@
-let reload = false;
+﻿let reload = false;
 let reset = false;
 let play = false;
 let mouse = false;
@@ -97,6 +97,7 @@ let music = function (p)
 
 		if (play)
 		{
+			playB.html('⬛');
 			player.play();
 		}
 		else
@@ -143,12 +144,6 @@ let music = function (p)
 			this.count = -1;
 			this.off = 0;
 		}
-
-		osc()
-		{
-			this.synth.dispose();
-			this.synth = new p5.PolySynth(OscVoice, 7 * 8);
-        }
 
 		line()
 		{
