@@ -59,7 +59,7 @@ let music = function (p)
 			if (tone != toneS.value())
 			{
 				tone = toneS.value();
-				player = new Player();
+				player.osc();
 			}
 			else if (tempo != tempoS.value()) { tempo = tempoS.value(); }
 			else if (grid.min != octamin.value() || grid.max != octamax.value())
@@ -138,7 +138,7 @@ let music = function (p)
 	{
 		constructor()
 		{
-			this.synth = new p5.PolySynth(OscVoice, 7 * 8);
+			this.synth = new p5.PolySynth(p5.MonoSynth, 7 * 8);
 			this.zero = p.millis();
 			this.count = -1;
 			this.off = 0;
@@ -146,6 +146,7 @@ let music = function (p)
 
 		osc()
 		{
+			this.synth.dispose();
 			this.synth = new p5.PolySynth(OscVoice, 7 * 8);
         }
 
