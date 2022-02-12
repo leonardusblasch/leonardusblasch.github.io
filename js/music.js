@@ -145,6 +145,12 @@ let music = function (p)
 			this.off = 0;
 		}
 
+		osc()
+		{
+			this.synth.dispose();
+			this.synth = new p5.PolySynth(OscVoice, 7 * 8);
+        }
+
 		line()
 		{
 			p.line(this.off, 0, this.off, p.height);
