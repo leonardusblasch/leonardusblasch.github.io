@@ -1,18 +1,18 @@
 const lim = 31103;
 
-_input.oninput = verse;
-_input.valueAsDate = new Date();
+_date.oninput = verse;
+_date.valueAsDate = new Date();
 
 verse();
 
 function verse() {
-  if(_input.value == 0)
+  if(_date.value == 0)
   {
     _title.innerHTML = null;
     _verse.innerHTML = null;
     return;
   }
-  let value = new Date(_input.value);
+  let value = new Date(_date.value);
   let date = value.getTime();
   let out = day_verse(date);
   _title.innerHTML = out[0];
