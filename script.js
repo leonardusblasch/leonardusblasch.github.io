@@ -13,6 +13,28 @@ options(_v, count);
 
 bib();
 
+_b.onchange = async () => {
+  b = parseInt(_b.value);
+  c = 0;
+  v = 0;
+  chaps = await g.chaps(b);
+  options(_c, chaps);
+  count = await g.count(b, c);
+  options(_v, count);
+  bib();
+};
+_c.onchange = async () => {
+  c = parseInt(_c.value);
+  v = 0;
+  count = await g.count(b, c);
+  options(_v, count);
+  bib();
+};
+_v.onchange = async () => {
+  v = parseInt(_v.value);
+  bib();
+};
+
 _prev.onclick = async () => {
   v--;
   if(v == -1) {
