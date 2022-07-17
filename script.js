@@ -7,31 +7,33 @@ let books = 33 + 33;
 let chaps = await g.chaps(b);
 let count = await g.count(b, c);
 
-options(_b, books, 0, true);
-options(_c, chaps);
-options(_v, count);
+options(_book, books, 0, true);
+options(_chap, chaps);
+options(_vers, count);
 
 bib();
 
-_b.onchange = async () => {
-  b = parseInt(_b.value);
+_book.onchange = async () => {
+  b = parseInt(_book.value);
   c = 0;
   v = 0;
   chaps = await g.chaps(b);
-  options(_c, chaps);
+  options(_chap, chaps);
   count = await g.count(b, c);
-  options(_v, count);
+  options(_vers, count);
   bib();
 };
-_c.onchange = async () => {
-  c = parseInt(_c.value);
+
+_chap.onchange = async () => {
+  c = parseInt(_chap.value);
   v = 0;
   count = await g.count(b, c);
-  options(_v, count);
+  options(_vers, count);
   bib();
 };
-_v.onchange = async () => {
-  v = parseInt(_v.value);
+
+_vers.onchange = async () => {
+  v = parseInt(_vers.value);
   bib();
 };
 
@@ -39,27 +41,27 @@ _prev.onclick = async () => {
   v--;
   if(v == -1) {
     c--;
-    _c.value = v;
+    _chap.value = v;
     if(c == -1) {
       b--;
-      _b.value = v;
+      _book.value = v;
       if(b == -1) {
         b = books - 1;
-        _b.value = b;
+        _book.value = b;
       }
       else {
-        _b.value = b;
+        _book.value = b;
       }
       chaps = await g.chaps(b);
       c = chaps - 1;
-      options(_c, chaps, c);
+      options(_chap, chaps, c);
     }
     count = await g.count(b, c);
     v = count - 1;
-    options(_v, count, v);
+    options(_vers, count, v);
   }
   else {
-    _v.value = v;
+    _vers.value = v;
   }
   bib();
 };
@@ -73,18 +75,18 @@ _next.onclick = async () => {
       if(b == books) {
         b = 0;
       } else {
-        _b.value = b;
+        _book.value = b;
       }
       chaps = await g.chaps(b);
       c = 0;
-      options(_c, chaps);
+      options(_chap, chaps);
     }
     count = await g.count(b, c);
     v = 0;
-    options(_v, count);
+    options(_vers, count);
   }
   else {
-    _v.value = v;
+    _vers.value = v;
   }
   bib();
 };
@@ -94,7 +96,7 @@ async function bib() {
   let info = `${t} ${c + 1}, ${v + 1}`;
   let vers = await g.bible(b, c, v);
   _info.innerHTML = info;
-  _vers.innerHTML = vers;
+  _text.innerHTML = vers;
 }
 
 function options(select, max, value = 0, book = false) {
