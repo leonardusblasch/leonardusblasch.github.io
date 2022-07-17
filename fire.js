@@ -16,7 +16,7 @@ const app = initializeApp(config);
 const db = getDatabase(app);
 const r = ref(db);
 
-export class fb
+export class g
 {
   static title(index) {
     return this.path(`title/${index}`);

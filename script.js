@@ -1,19 +1,16 @@
-import { fb } from "./fire.js";
+import { g } from "./fire.js";
 
-let book = Math.floor(Math.random()*66);
+let b = random(66);
+let c = random(await g.chaps(b));
+let v = random(await g.count(b, c));
+let t = await g.title(b);
 
+let info = `${t} ${c + 1}, ${v + 1}`;
+let vers = await g.bible(b, c, v);
 
+_info.innerHTML = info;
+_vers.innerHTML = vers;
 
-/*
-let title = await fb.title(0);
-console.log(title);
-
-let chaps = await fb.chaps(0);
-console.log(chaps);
-
-let count = await fb.count(0, 0);
-console.log(count);
-
-let verse = await fb.bible(0, 0, 0);
-console.log(verse);
-*/
+function random(max) {
+  return Math.floor(Math.random() * max);
+}
