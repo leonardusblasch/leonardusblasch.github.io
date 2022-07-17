@@ -1,6 +1,6 @@
 import { g } from "./fire.js";
 
-let b = random(66);
+let b = random(33 + 33);
 let c = random(await g.chaps(b));
 let v = random(await g.count(b, c));
 let t = await g.title(b);
