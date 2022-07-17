@@ -18,21 +18,17 @@ const db = getDatabase(app);
 const r = ref(db);
 
 export class g
-{
-  static title(b) {
-    return this.path(`title/${b}`);
+{ 
+  static bible(b, c, v) {
+    return this.path(`bible/${b}/${c}/${v}`);
   }
-  
+
   static chaps(b) {
     return this.path(`chaps/${b}`);
   }
-  
+
   static count(b, c) {
     return this.path(`count/${b}/${c}`);
-  }
-  
-  static bible(b, c, v) {
-    return this.path(`bible/${b}/${c}/${v}`);
   }
   
   static path(path) {
