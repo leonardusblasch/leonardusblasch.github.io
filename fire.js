@@ -1,5 +1,6 @@
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
+
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js";
 
 const config = {
@@ -18,12 +19,12 @@ const r = ref(db);
 
 export class g
 {
-  static title(index) {
-    return this.path(`title/${index}`);
+  static title(b) {
+    return this.path(`title/${b}`);
   }
   
-  static chaps(book) {
-    return this.path(`chaps/${book}`);
+  static chaps(b) {
+    return this.path(`chaps/${b}`);
   }
   
   static count(b, c) {
@@ -43,6 +44,7 @@ export class g
       }
     }).catch((error) => {
       console.error(error);
+      return "error";
     });
   }
 }

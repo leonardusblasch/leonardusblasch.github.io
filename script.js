@@ -11,6 +11,8 @@ let vers = await g.bible(b, c, v);
 _info.innerHTML = info;
 _vers.innerHTML = vers;
 
+_test.innerHTML = "test";
+
 function random(max) {
   return Math.floor(Math.random() * max);
 }
