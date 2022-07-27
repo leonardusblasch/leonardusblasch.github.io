@@ -107,7 +107,7 @@ class Arm extends Blank{
     draw() {
         this.g.background(255);
         if(this.len == 1) {
-            this.g.text(this.ops[0], this.x, this.h2);
+            this.g.text(this.ops[0], this.w / 2, this.h2);
             image(this.g, this.x, this.y, this.w, this.h);
             return;
         }
