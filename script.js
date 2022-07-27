@@ -82,7 +82,7 @@ class Blank {
 
     update() {
         fill(200);
-        rect(this.x, this.y, this.w, this.h)
+        rect(this.x, this.y, this.w, this.h);
     }
 }
 
