@@ -1,6 +1,5 @@
 // https://firebase.google.com/docs/web/setup#available-libraries
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-app.js";
-
 import { getDatabase, ref, get, child } from "https://www.gstatic.com/firebasejs/9.9.0/firebase-database.js";
 
 const config = {
