@@ -18,7 +18,7 @@ window.draw = function() {
     background(130);
     stroke(150);
     line(0, height / 2, width, height / 2);
-    bandit.draw(0.3);
+    bandit.draw(0.1);
 }
 
 class Bandit {
