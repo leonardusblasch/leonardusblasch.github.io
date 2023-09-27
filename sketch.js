@@ -12,7 +12,7 @@ function windowResized() {
 }
 
 function draw() {
-    perlin.draw(z += 0.01);
+    perlin.draw(z += 0.007);
 }
 
 function initSketch() {
@@ -25,15 +25,15 @@ class Perlin {
         noStroke();
         colorMode(HSB, 1);
         noiseSeed(42)
-        this.size = ceil(max(width, height) * 0.01);
+        this.size = ceil(max(width, height) * 0.07);
         this.cols = ceil(width / this.size);
         this.rows = ceil(height / this.size);
     }
     draw() {
         for (let y = 0; y < this.rows; y++) {
             for (let x = 0; x < this.cols; x++) {
-                let nx = x * 0.005;
-                let ny = y * 0.005;
+                let nx = x * 0.07;
+                let ny = y * 0.07;
                 fill(noise(nx, ny, z), 50, 100);
                 rect(x * this.size, y * this.size, this.size);
             }
