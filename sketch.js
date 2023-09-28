@@ -1,6 +1,5 @@
-console.log("created with p5.js @ https://p5js.org/copyright.html");
-
 let z = 0.0;
+
 let perlin;
 
 function initSketch() {
