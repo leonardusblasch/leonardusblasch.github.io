@@ -3,6 +3,11 @@ console.log("created with p5.js @ https://p5js.org/copyright.html");
 let z = 0.0;
 let perlin;
 
+function initSketch() {
+    createCanvas(windowWidth, windowHeight);
+    perlin = new Perlin();
+}
+
 function setup() {
     initSketch();
 }
@@ -15,15 +20,11 @@ function draw() {
     perlin.draw(z += 0.01);
 }
 
-function initSketch() {
-    createCanvas(windowWidth, windowHeight);
-    perlin = new Perlin();
-}
-
 class Perlin {
     constructor() {
         noStroke();
         colorMode(HSB, 1);
+        pixelDensity(1);
         noiseSeed(42)
         this.size = ceil(max(width, height) * 0.01);
         this.cols = ceil(width / this.size);
